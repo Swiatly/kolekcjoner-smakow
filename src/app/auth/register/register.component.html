@@ -1,41 +1,78 @@
 <div class="d-flex justify-content-center align-items-center vh-100">
     <div class="card shadow p-4 m-3 register-card">
-      <h2 class="text-center mb-4">Rejestracja</h2>
-      <form>
-        <div class="form-group mb-3">
-          <label for="email">E-mail</label>
-          <input type="email" class="form-control" id="email" placeholder="Wprowadź e-mail" required>
-        </div>
-        <div class="form-group mb-3">
-          <label for="username">Nazwa użytkownika</label>
-          <input type="text" class="form-control" id="username" placeholder="Wprowadź nazwę użytkownika" required>
-        </div>
-        <div class="form-group mb-3 position-relative password-field">
-          <label for="password">Hasło</label>
-          <input 
-            [type]="showPassword ? 'text' : 'password'" 
-            class="form-control" 
-            id="password" 
-            placeholder="Wprowadź hasło" 
-            required>
-          <span class="toggle-password" (click)="togglePasswordVisibility()">
-            <i [class]="showPassword ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill'"></i>
-          </span>
-        </div>
-        <div class="form-group mb-4 position-relative password-field">
-          <label for="confirmPassword">Powtórz hasło</label>
-          <input 
-            [type]="showConfirmPassword ? 'text' : 'password'" 
-            class="form-control" 
-            id="confirmPassword" 
-            placeholder="Powtórz hasło" 
-            required>
-          <span class="toggle-password" (click)="toggleConfirmPasswordVisibility()">
-            <i [class]="showConfirmPassword ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill'"></i>
-          </span>
-        </div>
-        <button type="submit" class="btn btn-primary w-100">Zarejestruj się</button>
-      </form>
+        <h2 class="text-center mb-4">Rejestracja</h2>
+        <form [formGroup]="signupForm">
+            <div class="form-group mb-3">
+                <label for="email">E-mail</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="email"
+                    placeholder="Wprowadź e-mail"
+                    formControlName="email" />
+                <span *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" class="text-danger">
+                    <small *ngIf="signupForm.get('email')?.hasError('required')">E-mail jest wymagany.</small>
+                    <small *ngIf="signupForm.get('email')?.hasError('email')">Niepoprawny format e-maila.</small>
+                </span>
+            </div>
+            <div class="form-group mb-3">
+                <label for="username">Nazwa użytkownika</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="username"
+                    placeholder="Wprowadź nazwę użytkownika"
+                    formControlName="username" />
+                <span
+                    *ngIf="signupForm.get('username')?.invalid && signupForm.get('username')?.touched"
+                    class="text-danger">
+                    <small *ngIf="signupForm.get('username')?.hasError('required')">
+                        Nazwa użytkownika jest wymagana.
+                    </small>
+                </span>
+            </div>
+            <div class="form-group mb-3 position-relative password-field">
+                <label for="password">Hasło</label>
+                <input
+                    [type]="showPassword ? 'text' : 'password'"
+                    class="form-control"
+                    id="password"
+                    placeholder="Wprowadź hasło"
+                    formControlName="password" />
+                <span class="toggle-password" (click)="togglePasswordVisibility()">
+                    <i [class]="showPassword ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill'"></i>
+                </span>
+                <span
+                    *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched"
+                    class="text-danger">
+                    <small *ngIf="signupForm.get('password')?.hasError('required')">Hasło jest wymagane.</small>
+                    <small *ngIf="signupForm.get('password')?.hasError('minlength')">
+                        Hasło musi mieć co najmniej 8 znaków.
+                    </small>
+                    <small *ngIf="signupForm.get('password')?.hasError('invalidPassword')">
+                        Hasło musi zawierać co najmniej jedną wielką literę, jedną małą literę, jedną cyfrę i jeden znak
+                        specjalny.
+                    </small>
+                </span>
+            </div>
+            <div class="form-group mb-4 position-relative password-field">
+                <label for="confirmPassword">Powtórz hasło</label>
+                <input
+                    [type]="showConfirmPassword ? 'text' : 'password'"
+                    class="form-control"
+                    id="confirmPassword"
+                    placeholder="Powtórz hasło"
+                    formControlName="password-repeat" />
+                <span class="toggle-password" (click)="toggleConfirmPasswordVisibility()">
+                    <i [class]="showConfirmPassword ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill'"></i>
+                </span>
+                <span
+                    *ngIf="signupForm.errors?.['passwordsMismatch'] && signupForm.get('password-repeat')?.touched"
+                    class="text-danger">
+                    <small>Hasła muszą być takie same.</small>
+                </span>
+            </div>
+            <button [disabled]="signupForm.invalid" type="submit" class="btn btn-primary w-100">Zarejestruj się</button>
+        </form>
     </div>
-  </div>
-  
+</div>

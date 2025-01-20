@@ -1,24 +1,22 @@
-
 .register-card {
     width: 100%;
     max-width: 400px;
-    }
-  
-    .password-field {
-        position: relative;
-  
+}
+
+.password-field {
+    position: relative;
+
     .toggle-password {
         position: absolute;
-        bottom: 5px;
-        right: 10px;
+        top: 0px;
+        right: 5px;
         cursor: pointer;
         display: flex;
         align-items: center;
-        font-size: 1.25rem; 
+        font-size: 1rem;
     }
 
     .form-control {
         padding-right: 40px;
     }
-  }
-  
+}
