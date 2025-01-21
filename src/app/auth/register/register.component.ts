@@ -7,7 +7,7 @@ import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModu
     standalone: true,
     imports: [ReactiveFormsModule, FormsModule, NgIf],
     templateUrl: './register.component.html',
-    styleUrl: './register.component.scss',
+    styleUrl: '../auth-form.scss',
     animations: [
         trigger('errorAnimation', [
             transition(':enter', [
