@@ -1,13 +1,22 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
-    selector: 'app-root',
     standalone: true,
     imports: [ReactiveFormsModule, FormsModule, NgIf],
     templateUrl: './register.component.html',
-    styleUrl: './register.component.scss'
+    styleUrl: './register.component.scss',
+    animations: [
+        trigger('errorAnimation', [
+            transition(':enter', [
+                style({ height: '0', opacity: 0, overflow: 'hidden' }),
+                animate('300ms ease-out', style({ height: '*', opacity: 1 }))
+            ]),
+            transition(':leave', [animate('300ms ease-in', style({ height: '0', opacity: 0, overflow: 'hidden' }))])
+        ])
+    ]
 })
 export class RegisterComponent implements OnInit {
     public signupForm!: FormGroup;

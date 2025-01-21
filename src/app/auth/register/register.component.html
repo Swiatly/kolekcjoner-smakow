@@ -10,10 +10,13 @@
                     id="email"
                     placeholder="Wprowadź e-mail"
                     formControlName="email" />
-                <span *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" class="text-danger">
+                <div
+                    *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched"
+                    @errorAnimation
+                    class="text-danger">
                     <small *ngIf="signupForm.get('email')?.hasError('required')">E-mail jest wymagany.</small>
                     <small *ngIf="signupForm.get('email')?.hasError('email')">Niepoprawny format e-maila.</small>
-                </span>
+                </div>
             </div>
             <div class="form-group mb-3">
                 <label for="username">Nazwa użytkownika</label>
@@ -23,13 +26,14 @@
                     id="username"
                     placeholder="Wprowadź nazwę użytkownika"
                     formControlName="username" />
-                <span
+                <div
                     *ngIf="signupForm.get('username')?.invalid && signupForm.get('username')?.touched"
+                    @errorAnimation
                     class="text-danger">
                     <small *ngIf="signupForm.get('username')?.hasError('required')">
                         Nazwa użytkownika jest wymagana.
                     </small>
-                </span>
+                </div>
             </div>
             <div class="form-group mb-3 position-relative password-field">
                 <label for="password">Hasło</label>
@@ -42,8 +46,9 @@
                 <span class="toggle-password" (click)="togglePasswordVisibility()">
                     <i [class]="showPassword ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill'"></i>
                 </span>
-                <span
+                <div
                     *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched"
+                    @errorAnimation
                     class="text-danger">
                     <small *ngIf="signupForm.get('password')?.hasError('required')">Hasło jest wymagane.</small>
                     <small *ngIf="signupForm.get('password')?.hasError('minlength')">
@@ -53,7 +58,7 @@
                         Hasło musi zawierać co najmniej jedną wielką literę, jedną małą literę, jedną cyfrę i jeden znak
                         specjalny.
                     </small>
-                </span>
+                </div>
             </div>
             <div class="form-group mb-4 position-relative password-field">
                 <label for="confirmPassword">Powtórz hasło</label>
@@ -66,11 +71,12 @@
                 <span class="toggle-password" (click)="toggleConfirmPasswordVisibility()">
                     <i [class]="showConfirmPassword ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill'"></i>
                 </span>
-                <span
+                <div
                     *ngIf="signupForm.errors?.['passwordsMismatch'] && signupForm.get('password-repeat')?.touched"
+                    @errorAnimation
                     class="text-danger">
                     <small>Hasła muszą być takie same.</small>
-                </span>
+                </div>
             </div>
             <button [disabled]="signupForm.invalid" type="submit" class="btn btn-primary w-100">Zarejestruj się</button>
         </form>
